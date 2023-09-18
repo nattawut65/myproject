@@ -5,20 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DB</title>
     <style>
-        table, td, th {
+        body {
+            font-family: Thonburi, Leelawadee, sans-serif;
+            font-size: large;
+        }
+        table,td, th {
             border-width: 1;
             border-style: solid;
             border-collapse: collapse;
         }
+        th {
+            background-color: aqua;
+            color: aliceblue;
+        }
+        p a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+    {% if messages %}
+        {% for messages in messages %}
+        <p style="color: blue;"><strong>{{messages}}</strong></p>
+        {% endfor %}
+    {% endif %}
     <table>
         <thead>
             <tr>
                 <th>id</th>
                 <th>name</th>
                 <th>price</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -26,11 +44,14 @@
             <tr>
                 <td>{{ product.id}}</td>
                 <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
+                <td>{{product.price|floatformat }}</td>
+                <td><button type="button" onclick="location.href='/update/{{product.id}}'">Update</button></td>
+                <td><button type="button" onclick="if (confirm('Are you sure ?')) window.location.href='/delete/{{product.id}}'">Delete</button></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <p><a href="/">Back to Home</a></p>
+    <p><a href="/add">[Add Data]</a>
+        <a href="/">[Back to Home]</a></p>
 </body>
 </html>
